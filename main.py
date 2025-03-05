@@ -45,7 +45,7 @@ def main():
             for shot in shots:
                 if assroid.check_collide(shot):
                     shot.kill()
-                    assroid.kill()
+                    assroid.split()
 
         for obj in drawable:
             obj.draw(screen)
