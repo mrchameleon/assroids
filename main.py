@@ -41,6 +41,12 @@ def main():
                 print("Game over!")
                 sys.exit()
 
+        for assroid in assroids:
+            for shot in shots:
+                if assroid.check_collide(shot):
+                    shot.kill()
+                    assroid.kill()
+
         for obj in drawable:
             obj.draw(screen)
 
