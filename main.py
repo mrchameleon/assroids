@@ -1,9 +1,11 @@
 import pygame
+import sys
 
 from assroid import Assroid
 from assroidfield import AssroidField
 from constants import *
 from player import Player
+from shot import Shot
 
 def main():
     print("Starting Asteroids!")
@@ -17,10 +19,13 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     assroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
     Assroid.containers = (assroids, updatable, drawable)
-    AssroidField.containers = (updatable,)
+    Shot.containers = (shots, updatable, drawable)
+    AssroidField.containers = updatable
+
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     field = AssroidField()
@@ -30,6 +35,12 @@ def main():
 
 
         updatable.update(dt)
+        
+        for assroid in assroids:
+            if player.check_collide(assroid):
+                print("Game over!")
+                sys.exit()
+
         for obj in drawable:
             obj.draw(screen)
 
